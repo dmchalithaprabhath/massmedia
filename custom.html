@@ -45,6 +45,29 @@
             color: black;
         }
         #map { height: calc(100% - 50px); width: 100%; }
+		.legend {
+    padding: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    color: #555;
+}
+
+.legend img {
+    vertical-align: middle; /* Aligns the icon vertically to the middle of the text */
+    margin-right: 5px; /* Provides a small space between the icon and text */
+}
+
+.legend br {
+    clear: both; /* Ensures that each entry appears on a new line */
+}
+
+.legend div {
+    display: flex; /* Uses flexbox to align items */
+    align-items: center; /* Centers items vertically within their container */
+    margin-bottom: 4px; /* Space between entries */
+}
+
     </style>
 </head>
 <body>
@@ -103,32 +126,64 @@
 		// Add default basemap
         baseLayers['CartoDB Voyager'].addTo(map);
         L.control.layers(baseLayers).addTo(map);
-        var markers = L.markerClusterGroup({
-    
-	disableClusteringAtZoom: 12  // Disable clustering at the maximum zoom level of your base map
-});
+        
+		var markers = L.markerClusterGroup();
+markers.options.disableClusteringAtZoom = 12;
+markers.options.maxClusterRadius = 50;
 
         var allData = []; // Store all data for filtering
 
         function addMarkers(data) {
-            markers.clearLayers();
-            data.forEach(function(item) {
-                if (item.Latitude && item.Longitude) {
-                    var iconUrl = 'icons/' + encodeURIComponent(item['Media Owner']) + '.png';
-                    
-					var customIcon = L.icon({
-						iconUrl: 'icons/' + encodeURIComponent(item['Media Owner'].trim()) + '.png',
-						iconSize: [40, 40], // Considering your icons are very large, scaling them down
-						iconAnchor: [20, 20],
-						popupAnchor: [0, -20]
-					});
+    markers.clearLayers(); // Clears existing markers before adding new ones
+    var legendContent = {}; // Object to hold unique media owners and their icons
 
-                    var marker = L.marker([item.Latitude, item.Longitude], {icon: customIcon}).bindPopup("<b>" + item['Media Owner'] + "</b><br/>" + item.Address);
-                    markers.addLayer(marker);
-                }
+    data.forEach(function(item) {
+        if (item.Latitude && item.Longitude) {
+            var iconUrl = 'icons/' + encodeURIComponent(item['Media Owner'].trim()) + '.png';
+            var legendKey = item['Media Owner']; // Default legend text
+
+            // Check if the status is 'Live' and change the icon URL and legend text if true
+            if (item.Status === 'Future') {
+                iconUrl = 'icons/Mass Media Outdoor Limited Future.png';
+                legendKey += ' - Future'; // Append "- Live" to the media owner in the legend
+            }
+
+            // Store unique entries with the last relevant icon URL
+            legendContent[legendKey] = iconUrl;
+
+            var customIcon = L.icon({
+                iconUrl: iconUrl,
+                iconSize: [40, 40],
+                iconAnchor: [20, 20],
+                popupAnchor: [0, -20]
             });
-            map.addLayer(markers);
+
+            var popupContent = "<b>" + item['Media Owner'] + "</b><br/>" +
+                               item.Address + ", " + item.Town + "<br/>" +
+                               item.Format + " - " + item.Status;
+
+            var marker = L.marker([item.Latitude, item.Longitude], {icon: customIcon})
+                         .bindPopup(popupContent);
+            markers.addLayer(marker);
         }
+    });
+
+    // Update the legend
+    updateLegend(legendContent);
+    map.addLayer(markers);
+}
+var legend = L.control({position: 'bottomleft'});
+
+legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.innerHTML = ''; // Initialize with empty content
+    return div;
+};
+
+legend.addTo(map);
+
+
+
 
         document.getElementById('mediaOwnerFilter').addEventListener('change', updateFilters);
         document.getElementById('formatFilter').addEventListener('change', updateFilters);
@@ -183,6 +238,25 @@
             });
             addMarkers(filteredData);
         }
+		
+		
+
+function updateLegend(legendContent) {
+    var legendDiv = legend.getContainer();
+    legendDiv.innerHTML = ''; // Clear existing legend entries
+
+    // Extract keys and sort them
+    var sortedKeys = Object.keys(legendContent).sort();
+
+    // Iterate over sorted keys and build the legend content
+    sortedKeys.forEach(function(owner) {
+        legendDiv.innerHTML += '<div><img src="' + legendContent[owner] + '" alt="Icon" style="width: 20px; height: 20px;"> ' + owner + '</div>';
+    });
+}
+
+
+
+
     </script>
 </body>
 </html>
