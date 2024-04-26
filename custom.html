@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Interactive Map with Clustering</title>
+    <title>Interactive Map with Clustering and Filters</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
@@ -10,46 +10,179 @@
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <style>
-        #map { height: 100vh; width: 100%; }
+        body, html { margin: 0; padding: 0; height: 100%; }
+        #header {
+            background: #868686; /* Dark gray background */
+            color: white; /* White text color */
+            padding: 10px;
+            font-size: 18px;
+            font-family: Arial, sans-serif; /* Arial font */
+            display: flex;
+            justify-content: space-between; /* Aligns children to each end */
+            align-items: center;
+        }
+        .title {
+            margin-left: 20px; /* Space from the left edge */
+        }
+        .filter-group {
+            display: flex;
+            align-items: center;
+            margin-right: 20px; /* Space from the right edge */
+        }
+        .filter-container {
+            display: flex;
+            align-items: center;
+            margin-left: 10px; /* Space between filters */
+        }
+        .filter-container label {
+            margin-right: 5px;
+            font-weight: bold;
+        }
+        select {
+            padding: 5px;
+            border-radius: 5px; /* Rounded corners on dropdowns */
+            background-color: white; /* Ensures dropdown is legible against dark header */
+            color: black;
+        }
+        #map { height: calc(100% - 50px); width: 100%; }
     </style>
 </head>
 <body>
+    <div id="header">
+        <div class="title">Live & Future Digital Billboards in the UK</div>
+        <div class="filter-group">
+            <div class="filter-container">
+                <label for="mediaOwnerFilter">Media Owner:</label>
+                <select id="mediaOwnerFilter">
+                    <option value="">All Media Owners</option>
+                    <!-- Options added dynamically -->
+                </select>
+            </div>
+            <div class="filter-container">
+                <label for="formatFilter">Format:</label>
+                <select id="formatFilter">
+                    <option value="">All Formats</option>
+                    <!-- Options added dynamically -->
+                </select>
+            </div>
+            <div class="filter-container">
+                <label for="statusFilter">Status:</label>
+                <select id="statusFilter">
+                    <option value="">All Statuses</option>
+                    <!-- Options added dynamically -->
+                </select>
+            </div>
+        </div>
+    </div>
     <div id="map"></div>
     <script>
-        // Initialize the map on the "map" div with a given center and zoom
-        var map = L.map('map').setView([51.505, -0.09], 13);
+        var map = L.map('map', {
+    center: [53.905, -1.9],
+    zoom: 6,
+    maxZoom: 18  // Define a maximum zoom level
+});
+        // Define base layers
+        var baseLayers = {
+            'OpenStreetMap': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }),
+            'Esri World Street Map': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles © Esri'
+            }),
+            'Esri World Imagery': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles © Esri — Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+            }),
+            'Esri World Topo Map': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles © Esri — Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+            }),
+            'CartoDB Voyager': L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap contributors, © CARTO'
+            })
+        };
+		
+		// Add default basemap
+        baseLayers['CartoDB Voyager'].addTo(map);
+        L.control.layers(baseLayers).addTo(map);
+        var markers = L.markerClusterGroup({
+    
+	disableClusteringAtZoom: 12  // Disable clustering at the maximum zoom level of your base map
+});
 
-        // Add an OpenStreetMap tile layer to the map
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
+        var allData = []; // Store all data for filtering
 
-        // Create a new marker cluster group
-        var markers = L.markerClusterGroup();
-
-        // Function to add markers to the cluster group
         function addMarkers(data) {
+            markers.clearLayers();
             data.forEach(function(item) {
                 if (item.Latitude && item.Longitude) {
-                    var marker = L.marker([item.Latitude, item.Longitude])
-                        .bindPopup("<b>" + item['Media Owner'] + "</b><br/>" + item.Address);
-                    markers.addLayer(marker); // Add marker to the cluster group
+                    var iconUrl = 'icons/' + encodeURIComponent(item['Media Owner']) + '.png';
+                    
+					var customIcon = L.icon({
+						iconUrl: 'icons/' + encodeURIComponent(item['Media Owner'].trim()) + '.png',
+						iconSize: [40, 40], // Considering your icons are very large, scaling them down
+						iconAnchor: [20, 20],
+						popupAnchor: [0, -20]
+					});
+
+                    var marker = L.marker([item.Latitude, item.Longitude], {icon: customIcon}).bindPopup("<b>" + item['Media Owner'] + "</b><br/>" + item.Address);
+                    markers.addLayer(marker);
                 }
             });
-            map.addLayer(markers); // Add the cluster group to the map
+            map.addLayer(markers);
         }
 
-        // Parse CSV data using Papa Parse and add markers
+        document.getElementById('mediaOwnerFilter').addEventListener('change', updateFilters);
+        document.getElementById('formatFilter').addEventListener('change', updateFilters);
+        document.getElementById('statusFilter').addEventListener('change', updateFilters);
+
         Papa.parse("data.csv", {
             download: true,
             header: true,
             skipEmptyLines: true,
             complete: function(results) {
-                console.log(results.data); // Log data for debugging
-                addMarkers(results.data);
-            }
-        });
+                
+				console.log("CSV Data:", results.data); // Check if data is loaded correctly
+				if (results.data && results.data.length) {
+					allData = results.data;
+                addMarkers(allData);
+                // Populate filter dropdowns dynamically
+                var mediaOwners = [...new Set(allData.map(item => item['Media Owner']))];
+                var formats = [...new Set(allData.map(item => item['Format']))];
+                var statuses = [...new Set(allData.map(item => item['Status']))];
+                mediaOwners.forEach(function(owner) {
+                    var option = document.createElement('option');
+                    option.value = owner;
+                    option.textContent = owner;
+                    document.getElementById('mediaOwnerFilter').appendChild(option);
+                });
+                formats.forEach(function(format) {
+                    var option = document.createElement('option');
+                    option.value = format;
+                    option.textContent = format;
+                    document.getElementById('formatFilter').appendChild(option);
+                });
+                statuses.forEach(function(status) {
+                    var option = document.createElement('option');
+                    option.value = status;
+                    option.textContent = status;
+                    document.getElementById('statusFilter').appendChild(option);
+                });
+				} else {
+					console.error("No data loaded from CSV!");
+				}
+					}
+				});
+
+        function updateFilters() {
+            var mediaOwner = document.getElementById('mediaOwnerFilter').value;
+            var format = document.getElementById('formatFilter').value;
+            var status = document.getElementById('statusFilter').value;
+            var filteredData = allData.filter(function(item) {
+                return (mediaOwner === "" || item['Media Owner'] === mediaOwner) &&
+                       (format === "" || item['Format'] === format) &&
+                       (status === "" || item['Status'] === status);
+            });
+            addMarkers(filteredData);
+        }
     </script>
 </body>
 </html>
