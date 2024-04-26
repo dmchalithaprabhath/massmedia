@@ -1,4 +1,4 @@
-﻿Frame ID,Media Owner,Format,Address,Town,Postcode,Latitude,Longitude,Status
+Frame ID,Media Owner,Format,Address,Town,Postcode,Latitude,Longitude,Status
 2000113456,75Media,DM6,"The M8 Tower, Glasow (Eastbound)",Paisley,PA3 2SG,55.86301572,-4.42464738,Live
 2000113457,75Media,DM6,"The M8 Tower, Glasgow (Westbound)",Paisley,PA3 2SG,55.86301113,-4.42458567,Live
 2000196026,75Media,DM6,New Craven Gate Leeds M621,Leeds,LS11 5NF,53.78295413,-1.54090941,Live
@@ -2121,3 +2121,107 @@
 1235473767,UK Billboards,D48,"333 Purley Way, Croydon facing northbound traffic",Croydon,CR0 3EY,51.3713768,-0.11707482,Live
 2000178789,UK Billboards,DM6,South Lambeth Road facing eastbound traffic,Kennington,SW8 1RT,51.48412628,-0.12338019,Live
 2000178790,UK Billboards,DM6,South Lambeth Road facing north and westbound traffic,Kennington,SW8 1RT,51.48422147,-0.12340319,Live
+,Mass Media Outdoor Limited,D96,A6 Salford Bridge,Salford,M6 6PR,53.49152,-2.28598,Future
+,Mass Media Outdoor Limited,D48,"Uxbridge Road, Hillingdon",Greater London,UB4 8HZ,51.52562,-0.43689,Future
+,Mass Media Outdoor Limited,D48,"Dudley Road, Birmingham",Birmingham,B18 7QS,52.48661,-1.93395,Future
+,Mass Media Outdoor Limited,D48,"Brierley Hill, nr Merry Hill",Dudley,DY5 2RG,52.48005,-2.120227496,Future
+,Mass Media Outdoor Limited,D48,"A2 London Road, Kent",Sittingbourne,ME9 9QD,51.32938,0.79295,Future
+,Mass Media Outdoor Limited,D48,"Wolverhampton Road, Oldbury",Birmingham,B69 4RS,52.48824,-2.01846,Future
+,Mass Media Outdoor Limited,D48,"Broadway West, Walsall",Walsall,WS1 4NT,52.57005,-1.99577,Future
+,Mass Media Outdoor Limited,D48,Bury New Road,Manchester,M8 8EQ,53.49328,-2.25002,Future
+,Mass Media Outdoor Limited,D48,Manor Way,Halesowen,B62 8RJ,52.44647,-2.03435,Future
+,Mass Media Outdoor Limited,D48,A45 Small Heath Way,Birmingham,B10 0AR,52.46015,-1.84817,Future
+,Mass Media Outdoor Limited,D48,A45 Small Heath Way,Birmingham,B10 0AR,52.46015,-1.84822,Future
+,Mass Media Outdoor Limited,D48,"Stockport Road, Levenshulme",Manchester,M19 3AD,53.44476,-2.19138,Future
+,Mass Media Outdoor Limited,D48,"Kidderminster Road, Hagley",Stourbridge,DY9 0JL,52.41395,-2.15063,Future
+,Mass Media Outdoor Limited,D96,"Whitmore Street, Hockley",Birmingham,B18 5LU,52.49523,-1.91617,Future
+,Mass Media Outdoor Limited,D48,"College Road, Perry Bar",Birmingham,B44 8BS,52.53006,-1.892042,Future
+,Mass Media Outdoor Limited,D48,"College Road, Perry Bar",Birmingham,B44 8BS,52.53007,-1.892042,Future
+,Mass Media Outdoor Limited,D96,Foleshill Road,Coventry,CV1 4LH,52.4156,-1.50977,Future
+,Mass Media Outdoor Limited,D48,Greenwich,London,SE10 0RT,51.49044,0.01897,Future
+,Mass Media Outdoor Limited,D48,Greenwich,London,SE10 0RT,51.49034,0.01933,Future
+,Mass Media Outdoor Limited,D48,"High Street, Brierley Hill",Dudley,DY5 4DP,52.50076,-2.13154,Future
+,Mass Media Outdoor Limited,D48,A461 Duncan Edwards Way 1,Dudley,DY2 0XU,52.50193,-2.09665,Future
+,Mass Media Outdoor Limited,D48,A461 Duncan Edwards Way 1,Dudley,DY2 0XU,52.50193,-2.0967,Future
+,Mass Media Outdoor Limited,D48,A461 Duncan Edwards Way 2,Dudley,DY2 8TA,52.50384,-2.08412,Future
+,Mass Media Outdoor Limited,D48,A461 Duncan Edwards Way 2,Dudley,DY2 8TA,52.5039,-2.08412,Future
+,Mass Media Outdoor Limited,D48,"Rotherhithe New Road, Bermondsey, Southwark",Greater London,SE16 2RD,51.48831,-0.05775,Future
+,Mass Media Outdoor Limited,D48,Stafford Road,Wolverhampton,WV10 6BA,52.6213,-2.12986,Future
+,Mass Media Outdoor Limited,D48,North Farm Lane,Tunbridge Road,TN2 3EE,51.15712,0.28822,Future
+,Mass Media Outdoor Limited,DM6,Westgate,Bradford,BD1 2QU,53.79568,-1.75851,Future
+,Mass Media Outdoor Limited,D48,"East Barnet Road, Barnet",Greater London,EN4 8RR,51.65003,-0.17383,Future
+,Mass Media Outdoor Limited,D48,"Manchester Road, Audenshaw",Greater Manchester,M34 5GF,53.47813,-2.1286274,Future
+,Mass Media Outdoor Limited,D48,A59 River Way,Wigan,WN1 1DG,53.54375,-2.62874,Future
+,Mass Media Outdoor Limited,D48,A59 River Way,Wigan,WN1 1DG,53.54375,-2.6288,Future
+,Mass Media Outdoor Limited,D48,Strand Road,Preston,PR1 8UY,53.76076,-2.72052,Future
+,Mass Media Outdoor Limited,D48,"A13 Alfreds Way, Barking",Greater London,IG11 0AT,51.52886,0.08464,Future
+,Mass Media Outdoor Limited,DM6,A33 Rose Kiln Lane,Reading,RG1,51.44042,-0.97681,Future
+,Mass Media Outdoor Limited,DM6,A33 Rose Kiln Lane,Reading,RG1,51.44042,-0.97686,Future
+,Mass Media Outdoor Limited,DM6,"A102 Blackwall Tunnel Approach, Greenwich",London,SE7 7HY,51.48406,0.02069,Future
+,Mass Media Outdoor Limited,DM6,"A102 Blackwall Tunnel Approach, Greenwich",London,SE7 7HY,51.48412,0.02069,Future
+,Mass Media Outdoor Limited,D48,"A41 Warwick Road, Tyseley",Birmingham,B11 2JR,52.45271,-1.85312,Future
+,Mass Media Outdoor Limited,D48,"Macclesfield Road, Leek",Staffordshire,ST13 8LA,53.11094,-2.04126,Future
+,Mass Media Outdoor Limited,D48,"A5063 Albion Way, Salford",Greater Manchester,M5 4BE,53.48342,-2.27645,Future
+,Mass Media Outdoor Limited,D48,"A5063 Albion Way, Salford",Greater Manchester,M5 4BE,53.48297,-2.27679,Future
+,Mass Media Outdoor Limited,D48,"Daybrook, Nottingham (A60)",Nottingham,NG5 6BH,52.99751,-1.13798,Future
+,Mass Media Outdoor Limited,D48,"Mansfield Road, Sherwood",Nottingham,NG5 2JJ,52.98003,-1.14736,Future
+,Mass Media Outdoor Limited,D48,Birmingham City Ring Road (A4540),Birmingham,B9 4HE,52.47839,-1.87628,Future
+,Mass Media Outdoor Limited,D48,"High Roads, Swaythling",Southampton,SO16 2JE,50.93885,-1.38024,Future
+,Mass Media Outdoor Limited,D48,"Northfield Road, Kings Norton",Birmingham,B30 1JD,52.41722,-1.9312,Future
+,Mass Media Outdoor Limited,D48,A133 Old Road,Clacton-On-Sea,CO15 3NP,51.79981,1.15167,Future
+,Mass Media Outdoor Limited,D48,A374 City Centre Ring Road,Plymouth,PL1 1SD,50.37328,-4.14519,Future
+,Mass Media Outdoor Limited,D48,A25 Ladymead,Guildford,GU1 1FP,51.24828,-0.87351,Future
+,Mass Media Outdoor Limited,D48,A25 Ladymead,Guildford,GU1 1FP,51.24822,-0.87351,Future
+,Mass Media Outdoor Limited,DM6,"North Circular, Neasden",Greater London,NW2 7AX,51.56888,-0.24123,Future
+,Mass Media Outdoor Limited,DM6,"North Circular, Neasden",Greater London,NW2 7AX,51.56882,-0.24123,Future
+,Mass Media Outdoor Limited,D48,A570 Two Saints Retail Park,Ormskirk,L36 3RN,53.56736,-2.88795,Future
+,Mass Media Outdoor Limited,DM6,"Lavender Hill, Clapham Junction",Greater London,SW11 1LN,51.46377,-0.16697,Future
+,Mass Media Outdoor Limited,DM6,Vicarage Road,Watford,WD18 0GN,51.65111,-0.40137,Future
+,Mass Media Outdoor Limited,D48,Cuton Hall Lane,Chelmsford,CM2 6PB,51.74592,0.50669,Future
+,Mass Media Outdoor Limited,D48,"South Road, Southall",Greater London,UB1 1SQ,51.50744,-0.37803,Future
+,Mass Media Outdoor Limited,DM6,"Hackney Road, Shoreditch",Greater London,E2 8NA,51.5312,-0.06782,Future
+,Mass Media Outdoor Limited,D48,A57 Liverpool Road Salford,Greater Manchester,M30 7SF,53.46577,-2.39436,Future
+,Mass Media Outdoor Limited,DM6,M67 Denton,Greater Manchester,,53.4567,-2.12872,Future
+,Mass Media Outdoor Limited,DM6,M67 Denton,Greater Manchester,,53.45676,-2.12872,Future
+,Mass Media Outdoor Limited,D48,"Mansfield Road, Redhill",Nottingham,NG5 2BS,53.01178,-1.1337,Future
+,Mass Media Outdoor Limited,D48,"Merton Road, Wimbledon",Greater London,SW19 1EE,51.41621,-0.19262,Future
+,Mass Media Outdoor Limited,DM6,M25 Waltham Abbey,Greater London,EN9 1JH,51.68092,-0.00358,Future
+,Mass Media Outdoor Limited,DM6,M25 Waltham Abbey,Greater London,EN9 1JH,51.6809,-0.00354,Future
+,Mass Media Outdoor Limited,D48,A429 Warwick Road (nr Station),Coventry,,52.40158,-1.51575,Future
+,Mass Media Outdoor Limited,D48,A429 Warwick Road (nr Station),Coventry,,52.4016,-1.51576,Future
+,Mass Media Outdoor Limited,D48,A444 Jaguar Whitely Junction,Coventry,,52.38675,-1.49342,Future
+,Mass Media Outdoor Limited,DM6,"A45 Fletchhamstead Highway, Tile Hill",Coventry,,52.40384,-1.55853,Future
+,Mass Media Outdoor Limited,DM6,"A45 Fletchhamstead Highway, Tile Hill",Coventry,,52.40387,-1.55855,Future
+,Mass Media Outdoor Limited,DM6,A444 Jimmy Hill Way by CBS Arena,Coventry,,52.44908,-1.49932,Future
+,Mass Media Outdoor Limited,DM6,A444 Jimmy Hill Way by CBS Arena,Coventry,,52.44908,-1.49928,Future
+,Mass Media Outdoor Limited,DM6,179 West Hendon Broadway (A5),Greater London,NW9 7EB,51.57756,-0.23983,Future
+,Mass Media Outdoor Limited,D48,A454 WIllenhall Road,Wolverhampton,WV1 2BJ,52.58408,-2.08564,Future
+,Mass Media Outdoor Limited,D48,"A127 Southend Road, Great Warley",Brentwood,,51.57459,0.29977,Future
+,Mass Media Outdoor Limited,D48,"A127 Southend Road, Great Warley",Brentwood,,51.5746,0.29976,Future
+,Mass Media Outdoor Limited,D48,"A386 Tavistock Road, Plymouth",Plymouth,PL6 5DA,50.41471,-4.12657,Future
+,Mass Media Outdoor Limited,D48,"A386 Tavistock Road, Plymouth",Plymouth,PL6 5DA,50.41469,-4.12658,Future
+,Mass Media Outdoor Limited,D48,Woodbourne Road Sheffield,Sheffield,S9 3LQ,53.38441,-1.43894,Future
+,Mass Media Outdoor Limited,D48,"282 High Street, Enfield",Greater London,EN3 4HF,51.64743,-0.0469,Future
+,Mass Media Outdoor Limited,DM6,A562 Chaloner Street,Liverpool,L3 4DE,53.39406,-2.98348,Future
+,Mass Media Outdoor Limited,D48,A460 Uxbridge Street,Cannock,WS12 1DB,52.70743,-1.99695,Future
+,Mass Media Outdoor Limited,D48,A61 Old Mill Lane,Barnsley,S71 1LL,53.56147,-1.47187,Future
+,Mass Media Outdoor Limited,D48,"Station Road, Blackheath",Dudley,B65 0LJ,52.47698,-2.03007,Future
+,Mass Media Outdoor Limited,D48,West Bromwich Ringway,West Bromwich,B70 7QU,52.51613,-1.99267,Future
+,Mass Media Outdoor Limited,DM6,"A36 Wilton Road, Salisbury",Salisbury,SP2 7ER,51.07348,-1.81286,Future
+,Mass Media Outdoor Limited,D48,High Road Leytonstone,Greater London,E11 3EQ,51.56349,0.00995,Future
+,Mass Media Outdoor Limited,D48,Neasden Lane,Greater London,NW10 2UE,51.55133,-0.24987,Future
+,Mass Media Outdoor Limited,D48,A671 John Street,Rochdale,OL16 2HP,53.61961,-2.153,Future
+,Mass Media Outdoor Limited,DM6,Fratton Road,Portsmouth,PO1 5DF,50.79883,-1.07678,Future
+,Mass Media Outdoor Limited,D48,Eastgate,Derby,DE21 6DA,52.92496,-1.46264,Future
+,Mass Media Outdoor Limited,D48,A459 Castle Hill,Dudley,DY1 4QQ,52.51295,-2.07741,Future
+,Mass Media Outdoor Limited,D48,"A34 Stratford Road, Shirley",Solihull,B90 3AD,52.40993,-1.82621,Future
+,Mass Media Outdoor Limited,D48,Great Hampton Street (Jewellery Qtr),Birmingham,B18 6EW,52.49054,-1.91004,Future
+,Mass Media Outdoor Limited,D48,Raynesway Derby SE,Derby,DE21 7HW,52.90016,-1.4271,Future
+,Mass Media Outdoor Limited,D96,AO Arena Victoria Manchester,Manchester,M3 1AR,53.48781,-2.24498,Future
+,Mass Media Outdoor Limited,DM6,Dartmouth Circus Birmingham,Birmingham,B7 4AT,52.49045,-1.88667,Future
+,Mass Media Outdoor Limited,D48,Harrow & Wealdstone,Greater London,HA3 5QH,51.59395,-0.33709,Future
+,Mass Media Outdoor Limited,D96,"M1 Slip Road, Staples Corner",Greater London,NW2 1LX,51.57276,-0.23113,Future
+,Mass Media Outdoor Limited,D48,Dudley Street,Walsall,WS1 1RA,52.58159,-1.9811,Future
+,Mass Media Outdoor Limited,D48,Ablewell Street,Walsall,WS1 2EQ,52.58324,-1.97518,Future
+,Mass Media Outdoor Limited,D48,"Wanstead Park, Newham",Greater London,E7 0DH,51.55248,0.02548,Future
+,Mass Media Outdoor Limited,DM6,"Mitcham Road, Tooting",Greater London,SW17 9NG,51.42616,-0.16595,Future
