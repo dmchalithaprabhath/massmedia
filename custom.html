@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Interactive Map with Clustering and Filters</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
@@ -9,30 +10,33 @@
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/nobleclem/jQuery-MultiSelect/master/jquery.multiselect.js"></script>
+    <link rel="stylesheet" href="https://cdn.rawgit.com/nobleclem/jQuery-MultiSelect/master/jquery.multiselect.css">
     <style>
         body, html { margin: 0; padding: 0; height: 100%; }
         #header {
-            background: #868686; /* Dark gray background */
-            color: white; /* White text color */
+            background: #868686;
+            color: white;
             padding: 10px;
             font-size: 18px;
-            font-family: Arial, sans-serif; /* Arial font */
+            font-family: Arial, sans-serif;
             display: flex;
-            justify-content: space-between; /* Aligns children to each end */
+            justify-content: space-between;
             align-items: center;
         }
         .title {
-            margin-left: 20px; /* Space from the left edge */
+            margin-left: 20px;
         }
         .filter-group {
             display: flex;
             align-items: center;
-            margin-right: 20px; /* Space from the right edge */
+            margin-right: 20px;
         }
         .filter-container {
             display: flex;
             align-items: center;
-            margin-left: 10px; /* Space between filters */
+            margin-left: 10px;
         }
         .filter-container label {
             margin-right: 5px;
@@ -40,34 +44,67 @@
         }
         select {
             padding: 5px;
-            border-radius: 5px; /* Rounded corners on dropdowns */
-            background-color: white; /* Ensures dropdown is legible against dark header */
-            color: black;
+            border-radius: 5px;
+            background-color: white;
+            color: black; /* Ensure text is black */
         }
-        #map { height: calc(100% - 50px); width: 100%; }
-		.legend {
-    padding: 6px;
-    background: rgba(255, 255, 255, 0.8);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    font-size: 14px;
-    color: #555;
-}
-
-.legend img {
-    vertical-align: middle; /* Aligns the icon vertically to the middle of the text */
-    margin-right: 5px; /* Provides a small space between the icon and text */
-}
-
-.legend br {
-    clear: both; /* Ensures that each entry appears on a new line */
-}
-
-.legend div {
-    display: flex; /* Uses flexbox to align items */
-    align-items: center; /* Centers items vertically within their container */
-    margin-bottom: 4px; /* Space between entries */
-}
-
+		/* Set the width of the dropdown button */
+		#mediaOwnerFilter + .ms-options-wrap > button {
+			width: 170px; /* Length for Media Owner dropdown button */
+		}
+		#formatFilter + .ms-options-wrap > button {
+			width: 100px; /* Length for Format dropdown button */
+		}
+		#statusFilter + .ms-options-wrap > button {
+			width: 75px; /* Length for Status dropdown button */
+		}
+		
+        /* Set specific max-widths for each dropdown */
+		#mediaOwnerFilter + .ms-options-wrap > .ms-options {
+			max-width: 170px; /* Maximum width for Media Owner dropdown */
+		}
+		#formatFilter + .ms-options-wrap > .ms-options {
+			max-width: 100px; /* Maximum width for Format dropdown */
+		}
+		#statusFilter + .ms-options-wrap > .ms-options {
+			max-width: 75px; /* Maximum width for Status dropdown */
+		}
+        .ms-options-wrap > .ms-options ul > li > label {
+            color: black; /* Ensure text within the dropdown is black */
+			font-size: 12px; /* Smaller font size for dropdown items */
+        }
+        #map {
+            height: 93vh; /* Use viewport height to make the map responsive */
+            width: 100%;
+        }
+        .legend {
+            padding: 6px;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            font-size: 14px;
+            color: #555;
+        }
+        .legend img {
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        .legend br {
+            clear: both;
+        }
+        .legend div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+        }
+		/* Responsive Media Query */
+        @media (max-width: 600px) {
+            .filter-group {
+                flex-direction: column; /* Stack filters vertically on small screens */
+            }
+            .filter-container {
+                margin: 5px 0; /* Reduce margin between filters */
+            }
+        }
     </style>
 </head>
 <body>
@@ -76,22 +113,19 @@
         <div class="filter-group">
             <div class="filter-container">
                 <label for="mediaOwnerFilter">Media Owner:</label>
-                <select id="mediaOwnerFilter">
-                    <option value="">All Media Owners</option>
+                <select id="mediaOwnerFilter" multiple>
                     <!-- Options added dynamically -->
                 </select>
             </div>
             <div class="filter-container">
                 <label for="formatFilter">Format:</label>
-                <select id="formatFilter">
-                    <option value="">All Formats</option>
+                <select id="formatFilter" multiple>
                     <!-- Options added dynamically -->
                 </select>
             </div>
             <div class="filter-container">
                 <label for="statusFilter">Status:</label>
-                <select id="statusFilter">
-                    <option value="">All Statuses</option>
+                <select id="statusFilter" multiple>
                     <!-- Options added dynamically -->
                 </select>
             </div>
@@ -99,11 +133,22 @@
     </div>
     <div id="map"></div>
     <script>
-        var map = L.map('map', {
-    center: [53.905, -1.9],
-    zoom: 6,
-    maxZoom: 18  // Define a maximum zoom level
-});
+        $(document).ready(function() {
+            $('select[multiple]').multiselect({
+                columns: 1,
+                placeholder: 'All',
+                search: false,
+                selectAll: true
+            });
+
+            var map = L.map('map', {
+				center: [53.905, -1.9],
+				zoom: 6,
+				maxZoom: 18, // Ensure this line ends with a comma
+				tap: true, // Enables tap handling for touch devices
+				tapTolerance: 30 // Increases the area responsive to taps
+			});
+
         // Define base layers
         var baseLayers = {
             'OpenStreetMap': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -185,9 +230,7 @@ legend.addTo(map);
 
 
 
-        document.getElementById('mediaOwnerFilter').addEventListener('change', updateFilters);
-        document.getElementById('formatFilter').addEventListener('change', updateFilters);
-        document.getElementById('statusFilter').addEventListener('change', updateFilters);
+        
 
         Papa.parse("data.csv", {
             download: true,
@@ -198,46 +241,50 @@ legend.addTo(map);
 				console.log("CSV Data:", results.data); // Check if data is loaded correctly
 				if (results.data && results.data.length) {
 					allData = results.data;
+					populateFilters(allData);
                 addMarkers(allData);
-                // Populate filter dropdowns dynamically
-                var mediaOwners = [...new Set(allData.map(item => item['Media Owner']))];
-                var formats = [...new Set(allData.map(item => item['Format']))];
-                var statuses = [...new Set(allData.map(item => item['Status']))];
-                mediaOwners.forEach(function(owner) {
-                    var option = document.createElement('option');
-                    option.value = owner;
-                    option.textContent = owner;
-                    document.getElementById('mediaOwnerFilter').appendChild(option);
-                });
-                formats.forEach(function(format) {
-                    var option = document.createElement('option');
-                    option.value = format;
-                    option.textContent = format;
-                    document.getElementById('formatFilter').appendChild(option);
-                });
-                statuses.forEach(function(status) {
-                    var option = document.createElement('option');
-                    option.value = status;
-                    option.textContent = status;
-                    document.getElementById('statusFilter').appendChild(option);
-                });
+                
 				} else {
 					console.error("No data loaded from CSV!");
 				}
 					}
 				});
 
+		function populateFilters(data) {
+                var mediaOwners = [...new Set(data.map(item => item['Media Owner']))];
+                var formats = [...new Set(data.map(item => item['Format']))];
+                var statuses = [...new Set(data.map(item => item['Status']))];
+                populateDropdown($('#mediaOwnerFilter'), mediaOwners);
+                populateDropdown($('#formatFilter'), formats);
+                populateDropdown($('#statusFilter'), statuses);
+            }
+			
+			function populateDropdown(dropdown, options) {
+                options.forEach(function(option) {
+                    dropdown.append($('<option>', {
+                        value: option,
+                        text: option
+                    }));
+                });
+                dropdown.multiselect('reload');
+            }
+		
+		
+		$('#mediaOwnerFilter, #formatFilter, #statusFilter').change(function() {
+                updateFilters();
+            });	
+			
         function updateFilters() {
-            var mediaOwner = document.getElementById('mediaOwnerFilter').value;
-            var format = document.getElementById('formatFilter').value;
-            var status = document.getElementById('statusFilter').value;
-            var filteredData = allData.filter(function(item) {
-                return (mediaOwner === "" || item['Media Owner'] === mediaOwner) &&
-                       (format === "" || item['Format'] === format) &&
-                       (status === "" || item['Status'] === status);
-            });
-            addMarkers(filteredData);
-        }
+                var mediaOwner = $('#mediaOwnerFilter').val() || [];
+                var format = $('#formatFilter').val() || [];
+                var status = $('#statusFilter').val() || [];
+                var filteredData = allData.filter(function(item) {
+                    return (mediaOwner.length === 0 || mediaOwner.includes(item['Media Owner'])) &&
+                           (format.length === 0 || format.includes(item['Format'])) &&
+                           (status.length === 0 || status.includes(item['Status']));
+                });
+                addMarkers(filteredData);
+            }
 		
 		
 
@@ -254,7 +301,7 @@ function updateLegend(legendContent) {
     });
 }
 
-
+});
 
 
     </script>
