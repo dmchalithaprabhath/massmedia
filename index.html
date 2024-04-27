@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Favicon for the website -->
-  <link rel="icon" type="image/png" href="Mass_Media_favicon.png">
+<link rel="icon" type="image/png" href="Mass_Media_favicon.png">
 <title>Map Viewer</title>
 <style>
   body, html {
@@ -15,7 +14,7 @@
   .header {
     background-color: #333;
     color: white;
-    padding: 0px 10px;
+    padding: 0 10px;
     font-size: 24px;
     display: flex;
     justify-content: space-between;
@@ -24,7 +23,7 @@
     width: 100%;
     top: 0;
     z-index: 2;
-    border-bottom: 2px solid palevioletred; /* Pale amethyst color outline */
+    border-bottom: 2px solid palevioletred;
   }
   .header button {
     background-color: #333;
@@ -37,27 +36,37 @@
   }
   .header button:hover, .header button.active {
     background-color: #575757;
-    outline: 2px solid palevioletred; /* Pale amethyst color outline */
   }
   .header .title {
     flex-grow: 1;
     text-align: center;
   }
   .header img {
-    height: 50px; /* or your preferred size */
-	padding: 5px 20px; /* Reduced padding to accommodate larger logo */
+    height: 50px;
+    padding: 5px 20px;
   }
-  .header img {
-    max-height: 50px; /* Adjust the height to fit the header */
-    width: auto; /* Maintain aspect ratio */
-    margin-left: auto; /* Push the image to the right */
+  @media (max-width: 600px) {
+    .header {
+      flex-direction: column;
+      padding: 5px;
+    }
+    .header .title {
+      font-size: 18px; /* Smaller text on smaller screens */
+    }
+    .header button {
+      font-size: 16px; /* Smaller buttons on smaller screens */
+      padding: 8px 10px;
+    }
+    .header img {
+      height: 40px; /* Smaller logo on smaller screens */
+    }
   }
   #mapFrame {
     width: 100%;
-    height: calc(100% - 52px); /* Adjusted for header height and border */
+    height: calc(100% - 52px);
     border: none;
     position: absolute;
-    top: 52px; /* Adjusted for header height and border */
+    top: 52px;
     left: 0;
   }
 </style>
@@ -70,14 +79,14 @@
     <button id="customMapBtn" class="button" onclick="showCustomMap()">Custom Map</button>
   </div>
   <div class="title">Outdoor Digital Advertising Locations across the UK</div>
-  <img src="Mass_Media_White.png" alt="Company Logo"> <!-- Company logo added here -->
+  <img src="Mass_Media_White.png" alt="Company Logo">
 </div>
 
-<iframe id="mapFrame" src="https://www.google.com/maps/d/u/0/embed?mid=1GRgp43L791Qv282aL6T_lOnp9jiq8Bc&ehbc=2E312F"></iframe>
+<iframe id="mapFrame" src="https://www.google.com/maps/d/u/0/embed?mid=1MWK6_jIbvUI1wpBUlCkh0YOEmEpG7Sk&ehbc=2E312F"></iframe>
 
 <script>
   function showGoogleMap() {
-    document.getElementById('mapFrame').src = "https://www.google.com/maps/d/u/0/embed?mid=1GRgp43L791Qv282aL6T_lOnp9jiq8Bc&ehbc=2E312F";
+    document.getElementById('mapFrame').src = "https://www.google.com/maps/d/u/0/embed?mid=1MWK6_jIbvUI1wpBUlCkh0YOEmEpG7Sk&ehbc=2E312F";
     setActiveButton('googleMapBtn');
   }
 
